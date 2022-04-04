@@ -75,7 +75,7 @@ var routes = function () {
     .get(function (req, res) {
             const BoEEntry = datamodel.BoEEntry();
             var param = { 
-                attributes:['Id','BoENumber','VendorID','VendorName','VendorSiteCode','PONumber','BoEExchangeRate','BoETotalAmount','SupplierInvoiceNumber'],
+                attributes:['Id','BoENumber','VendorID','VendorName','VendorSiteCode','PONumber','HAWB','BoEExchangeRate','BoETotalAmount','SupplierInvoiceNumber'],
                 where : { BoEDetailsCreated : 0 },
                 order: [['Id']] 
             };
@@ -377,6 +377,7 @@ var routes = function () {
                     PONumber: reqBody.PONumber,
                     BoEShipmentNumber:reqBody.BoEShipmentNumber,
                     RecieptDate: reqBody.RecieptDate,
+                    BoEHAWB: reqBody.BoEHAWB,
                     BoEExchangeRate: reqBody.BoEExchangeRate,
                     BoETotalAmount: reqBody.BoETotalAmount,
                     TotalInvoiceAmount: reqBody.TotalInvoiceAmount,
@@ -518,6 +519,14 @@ var routes = function () {
                     "EmployeeId": EmployeeId,  //HardCoded
                     "TransactionDate": currentDate,
                     "GLDate": currentDate,
+                    // "DFF": [
+                    //     {
+                    //         "hawb": request.BoEHAWB,
+                    //         "boe": request.BoENumber.BoENumber,
+                    //         "boeExchangeRate": request.BoEExchangeRate,
+                    //         "totalCustomDuty": request.TotalInvoiceAmount
+                    //     }
+                    // ],
                     "lines": list
                 });
     

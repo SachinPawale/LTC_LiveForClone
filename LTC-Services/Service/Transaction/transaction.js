@@ -155,7 +155,7 @@ var routes = function () {
         });
 
     router.route('/CreateOrganization')
-        .post(function (req, res) {
+        .get(function (req, res) {
 
             var config = {
                 // method: 'get',
@@ -441,7 +441,7 @@ var routes = function () {
         });
 
     router.route('/CreateLocationDetails')
-        .post(function (req, res) {
+        .get(function (req, res) {
             var config = {
                 // method: 'get',
                 // url: 'https://fa-etcj-test-saasfaprod1.fa.ocs.oraclecloud.com/hcmRestApi/resources/11.13.18.05/locationsV2/',
@@ -1754,7 +1754,7 @@ var routes = function () {
     //     });
 
     router.route('/CreateSubInventoryDetails')
-        .post(function (req, res) {
+        .get(function (req, res) {
             var config = {
                 method: configuration.SubinventoryData.configData.method,
                 url: configuration.SubinventoryData.configData.url,

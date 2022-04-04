@@ -54,6 +54,9 @@ module.exports.CreateTable = function (res) {
     datamodel.POCostReport();
     datamodel.SchedulerLogger();
     datamodel.Masterschedulerdetails();
+    datamodel.BankingInmst();
+    datamodel.BankAccountMst();
+    datamodel.TDSGST();
     //datamodel.EntityMaster();
     //datamodel.CurrencyMaster();
 
