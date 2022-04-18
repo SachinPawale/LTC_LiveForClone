@@ -19,11 +19,11 @@ cron.schedule('00 21 * * *',function(){
 });
 
 //For TDSGST Master Data
-cron.schedule('30 21 * * *',function(){
+cron.schedule('*/15 * * * *',function(){
    SchedulerFunction.Get_TDSGST_Files_APIFunction();
 });
 
-//For BoE COST Master Data
+//For COST Master Data
 cron.schedule('00 23 * * *',function(){
    SchedulerFunction.Get_PO_Cost_Report_Files_APIFunction();
 });
@@ -34,7 +34,7 @@ cron.schedule('00 23 * * *',function(){
 //     BoEDetails.CostAPI();
 // });
 
-//For TDSGST Push API
-cron.schedule('00 22 * * *',function(){
+//For TDSGST API
+cron.schedule('*/15 * * * *',function(){
    TDSGSTFunction.TDSGST_Scheduler_Function();
 });

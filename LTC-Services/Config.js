@@ -438,10 +438,10 @@ const BankingIntegrationAPIData = {
         },
     },
     SFTPDetails:{
-        host: '10.3.0.71',
+        host: '10.1.2.134',
         port: '21',
-        username: 'ftpuser',
-        password: 'ftpuser'
+        username: 'sftp_user',
+        password: 'sftp@123'
     }
 
 }
