@@ -5423,7 +5423,7 @@ class BOEComponent {
                 this.openSnackBarError("Document should be in pdf or zip format");
                 break;
             }
-            if (fileSize >= 2097152) { //4MB = 4194304bytes
+            if (fileSize >= 10485760) { //4MB = 4194304bytes
                 this.openSnackBarError("Document size should be less than 2MB");
                 break;
             }
@@ -5455,8 +5455,8 @@ class BOEComponent {
                 this.checkValuesBeforeSubmit();
                 if (this.isCorrectBoEDetailsMapData == true) {
                     this.spinner.show();
-                    let checkBoENumber = this.BoEEntryForm.value.BoENumber.trim();
-                    this.rest.checkDuplicateParam(this.global.getapiendpoint() + 'BoEFinal/CheckDuplicateBoENumber/', checkBoENumber).subscribe((data) => {
+                    let SupplierInvoiceNumber = this.BoEEntryForm.value.SupplierInvoiceNumber.trim();
+                    this.rest.checkDuplicateParam(this.global.getapiendpoint() + 'BoEFinal/CheckDuplicateSupplierInvoiceNumber/', SupplierInvoiceNumber).subscribe((data) => {
                         if (data.Data == false) {
                             let model = {
                                 userId: this.userId,
@@ -5503,11 +5503,11 @@ class BOEComponent {
                         }
                         else if (data.Data == true) {
                             this.spinner.hide();
-                            this.openSnackBarError('BoE Number Already Exists');
+                            this.openSnackBarError('Supplier Invoice Number Already Exists');
                         }
                         else {
                             this.spinner.hide();
-                            this.openSnackBarError('Error While Checking Duplicate BoE Number');
+                            this.openSnackBarError('Error While Checking Duplicate Supplier Invoice Number');
                         }
                     });
                 }

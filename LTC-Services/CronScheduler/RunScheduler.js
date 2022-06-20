@@ -29,10 +29,10 @@ cron.schedule('00 23 * * *',function(){
 });
 
 //For COST Update API
-// var BoEDetails = require('../Service/BoE/BoEDetailsService')
-// cron.schedule('24 16 * * *', () => {
-//     BoEDetails.CostAPI();
-// });
+var BoEDetails = require('../Service/BoE/BoEFinalService')
+cron.schedule('*/20 * * * *', () => {
+    BoEDetails.CostAPI();
+});
 
 //For TDSGST API
 cron.schedule('*/15 * * * *',function(){

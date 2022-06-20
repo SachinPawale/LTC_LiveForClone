@@ -1312,8 +1312,8 @@ module.exports.BankingInmst = function () {
             StatusId: { type: Sequelize.INTEGER, allowNull: true },
             ReceitAPIResponse: { type: Sequelize.INTEGER, allowNull: true },
             RecieptNumber: { type: Sequelize.BIGINT, allowNull: true },
-            isCostUpdatedId: { type: Sequelize.INTEGER, allowNull: true },
-            AdjustmentNumber: { type: Sequelize.BIGINT, allowNull: true },
+            // isCostUpdatedId: { type: Sequelize.INTEGER, allowNull: true },
+            // AdjustmentNumber: { type: Sequelize.BIGINT, allowNull: true },
             CreatedBy: { type: Sequelize.INTEGER, allowNull: true },
             CreatedDate: { type: Sequelize.DATE, allowNull: true, defaultValue: Sequelize.NOW },
             ModifiedBy: { type: Sequelize.INTEGER, allowNull: true },
@@ -1372,6 +1372,10 @@ module.exports.BankingInmst = function () {
             DistributionCombination:{ type: Sequelize.TEXT, allowNull: true },
             NumberOfBox: { type: Sequelize.INTEGER, allowNull: true },   
     
+            RecieptNumber: { type: Sequelize.BIGINT, allowNull: true },
+            isCostUpdatedId: { type: Sequelize.INTEGER, allowNull: true },
+            AdjustmentNumber: { type: Sequelize.BIGINT, allowNull: true },
+
             CreatedBy: { type: Sequelize.INTEGER, allowNull: true },
             CreatedDate: { type: Sequelize.DATE, allowNull: true, defaultValue: Sequelize.NOW },
             ModifiedBy: { type: Sequelize.INTEGER, allowNull: true },
