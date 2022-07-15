@@ -3244,8 +3244,8 @@ class BOEEntryComponent {
                 this.openSnackBarError("Document should be in pdf format");
                 break;
             }
-            if (fileSize >= 2097152) { //4MB = 4194304bytes
-                this.openSnackBarError("Document size should be less than 2MB");
+            if (fileSize >= 10485760) { //4MB = 4194304bytes
+                this.openSnackBarError("Document size should be less than 10 MB");
                 break;
             }
             this.fileArray.push(item);
@@ -5424,7 +5424,7 @@ class BOEComponent {
                 break;
             }
             if (fileSize >= 10485760) { //4MB = 4194304bytes
-                this.openSnackBarError("Document size should be less than 2MB");
+                this.openSnackBarError("Document size should be less than  10 MB");
                 break;
             }
             this.fileArray.push(item);
@@ -10934,7 +10934,7 @@ function WizardComponent_div_4_div_94_div_1_Template(rf, ctx) {
       const i_r103 = restoredCtx.index;
       const x_r102 = restoredCtx.$implicit;
       const ctx_r107 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"](3);
-      return ctx_r107.onQuantityChange($event, i_r103, x_r102.ITEM_NUMBER, x_r102.TRN_QTY);
+      return ctx_r107.onQuantityChange($event, i_r103, x_r102.ITEM_NUMBER, x_r102.TRN_QTY, x_r102.LOT_NUMBER);
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
@@ -13642,13 +13642,16 @@ class WizardComponent {
   getItemDetails() {
     let selectedItemINTERNAL_LOCATION_CODE = '';
     let selectedItemNumbers = [];
+    let selectedItemLOT_NUMBER = [];
     this.selectedItems.forEach(element => {
       selectedItemNumbers.push(element.ITEM_NUMBER);
       selectedItemINTERNAL_LOCATION_CODE = element.INTERNAL_LOCATION_CODE;
+      selectedItemLOT_NUMBER.push(element.LOT_NUMBER);
     });
     let model = {
       ITEM_NUMBER: selectedItemNumbers,
-      INTERNAL_LOCATION_CODE: selectedItemINTERNAL_LOCATION_CODE
+      INTERNAL_LOCATION_CODE: selectedItemINTERNAL_LOCATION_CODE,
+      LOT_NUMBER: selectedItemLOT_NUMBER
     };
     this.rest.postParams(this.global.getapiendpoint() + "transaction/GetItemDetailsByITEM_NUMBER", model).subscribe(data => {
       let fetcheddata = data.Data;
@@ -13666,7 +13669,7 @@ class WizardComponent {
         let res = [];
         res = arr1.filter(el => {
           return !arr2.find(element => {
-            return element.ITEM_NUMBER === el.ITEM_NUMBER;
+            return element.ITEM_NUMBER === el.ITEM_NUMBER && element.LOT_NUMBER === el.LOT_NUMBER;
           });
         });
         addNewItems.push(res);
@@ -13679,6 +13682,7 @@ class WizardComponent {
           addNewItems.forEach(element => {
             this.itemQuantityList.push({
               ITEM_NUMBER: element[0].ITEM_NUMBER,
+              LOT_NUMBER: element[0].LOT_NUMBER,
               ITEM_QUANTITY: null
             });
           });
@@ -13691,6 +13695,7 @@ class WizardComponent {
         if (this.itemQuantityList.length == 0) {
           this.itemQuantityList.push({
             ITEM_NUMBER: element.ITEM_NUMBER,
+            LOT_NUMBER: element.LOT_NUMBER,
             ITEM_QUANTITY: null
           });
         }
@@ -13698,7 +13703,7 @@ class WizardComponent {
 
       this.itemDetails.forEach((element1, index1) => {
         this.itemQuantityList.forEach(element2 => {
-          if (element1.ITEM_NUMBER == element2.ITEM_NUMBER) {
+          if (element1.ITEM_NUMBER == element2.ITEM_NUMBER && element1.LOT_NUMBER == element2.LOT_NUMBER) {
             const item = this.itemDetails[index1];
             const data = {
               ITEM_QUANTITY: element2.ITEM_QUANTITY
@@ -13832,16 +13837,17 @@ class WizardComponent {
   // }
 
 
-  onQuantityChange(event, i, itemNumber, itemTRNQTY) {
+  onQuantityChange(event, i, itemNumber, itemTRNQTY, itemLOT_NUMBER) {
     let currentItemNum = itemNumber;
     let currentItemQuantity = event.target.value;
+    let currentItemLotNumber = itemLOT_NUMBER;
     let oldItemList = this.itemQuantityList;
     let TRN_QTY = itemTRNQTY;
 
     if (currentItemQuantity <= 0) {
       if (oldItemList.length != 0) {
         oldItemList.forEach((element, index) => {
-          if (element.ITEM_NUMBER == currentItemNum) {
+          if (element.ITEM_NUMBER == currentItemNum && element.LOT_NUMBER == currentItemLotNumber) {
             if (currentItemQuantity != '') {
               const item = this.itemQuantityList[index];
               const data = {
@@ -13868,7 +13874,7 @@ class WizardComponent {
     } else if (currentItemQuantity > TRN_QTY) {
       if (oldItemList.length != 0) {
         oldItemList.forEach((element, index) => {
-          if (element.ITEM_NUMBER == currentItemNum) {
+          if (element.ITEM_NUMBER == currentItemNum && element.LOT_NUMBER == currentItemLotNumber) {
             if (currentItemQuantity != '') {
               const item = this.itemQuantityList[index];
               const data = {
@@ -13895,7 +13901,7 @@ class WizardComponent {
     } else {
       if (oldItemList.length != 0) {
         oldItemList.forEach((element, index) => {
-          if (element.ITEM_NUMBER == currentItemNum) {
+          if (element.ITEM_NUMBER == currentItemNum && element.LOT_NUMBER == currentItemLotNumber) {
             if (currentItemQuantity != '') {
               const item = this.itemQuantityList[index];
               const data = {
@@ -13916,7 +13922,7 @@ class WizardComponent {
 
     this.itemDetails.forEach((element1, index1) => {
       this.itemQuantityList.forEach(element2 => {
-        if (element1.ITEM_NUMBER == element2.ITEM_NUMBER) {
+        if (element1.ITEM_NUMBER == element2.ITEM_NUMBER && element1.LOT_NUMBER == element2.LOT_NUMBER) {
           const item = this.itemDetails[index1];
           const data = {
             ITEM_QUANTITY: element2.ITEM_QUANTITY
@@ -14298,13 +14304,16 @@ class WizardComponent {
 
               let selectedItemINTERNAL_LOCATION_CODE = '';
               let selectedItemNumbers = [];
+              let selectedItemLOT_NUMBER = [];
               this.selectedItems.forEach(element => {
                 selectedItemNumbers.push(element.ITEM_NUMBER);
                 selectedItemINTERNAL_LOCATION_CODE = element.INTERNAL_LOCATION_CODE;
+                selectedItemLOT_NUMBER.push(element.LOT_NUMBER);
               });
               let model = {
                 ITEM_NUMBER: selectedItemNumbers,
-                INTERNAL_LOCATION_CODE: selectedItemINTERNAL_LOCATION_CODE
+                INTERNAL_LOCATION_CODE: selectedItemINTERNAL_LOCATION_CODE,
+                LOT_NUMBER: selectedItemLOT_NUMBER
               };
               this.rest.postParams(this.global.getapiendpoint() + "transaction/GetItemDetailsByITEM_NUMBER", model).subscribe(data => {
                 let fetcheddata = data.Data;
@@ -14312,6 +14321,7 @@ class WizardComponent {
                   this.itemDetails.push(element);
                   this.itemQuantityList.push({
                     ITEM_NUMBER: element.ITEM_NUMBER,
+                    LOT_NUMBER: element.LOT_NUMBER,
                     ITEM_QUANTITY: null
                   });
                 });
@@ -14329,7 +14339,7 @@ class WizardComponent {
 
                 this.itemDetails.forEach((element1, index1) => {
                   this.itemQuantityList.forEach(element2 => {
-                    if (element1.ITEM_NUMBER == element2.ITEM_NUMBER) {
+                    if (element1.ITEM_NUMBER == element2.ITEM_NUMBER && element1.LOT_NUMBER == element2.LOT_NUMBER) {
                       const item = this.itemDetails[index1];
                       const data = {
                         ITEM_QUANTITY: element2.ITEM_QUANTITY

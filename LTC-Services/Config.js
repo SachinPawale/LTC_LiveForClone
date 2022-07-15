@@ -156,7 +156,7 @@ const EmailSMTPConfig = {
     port: 587,                 //SMTP PORT
     auth: {
         user: "Notification.Centre@Lightstorm.in",   //Username
-        pass: "C@re@123!#"    //Password
+        pass: "Mn675qQ$&%PTnbghftQWUSTnhgtsy!@^$K"   //"C@re@123!#"    //Password
     }
 }
 

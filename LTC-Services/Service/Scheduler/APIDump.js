@@ -219,7 +219,8 @@ module.exports.GetFiles_API = async function(Filename){
                         })
                       }
                       else{
-                        await sleep(100000);
+                        console.log("For 10 minutes wait 2nd API");
+                        await sleep(600000);
                         const response2 = await axios(config_status)
 
                         if(response1.status == 200 || response1.status == 201){
@@ -237,6 +238,9 @@ module.exports.GetFiles_API = async function(Filename){
                             var param = { RequestId: response.data.ReqstId , Id: Obj_Schedulerresults.Id };
                             
                             dataaccess.Update(datamodel.Masterschedulerdetails(),updatevalues,param);
+                            console.log("2nd  API called 2 time RMO", objectValue['JOBS']);
+                            console.log("2nd  API called 2 time RMO API response", objectValue['JOBS'].STATUS.toLowerCase().trim() );
+                            
                             if(objectValue['JOBS'].STATUS.toLowerCase().trim()=='succeeded')
                             {
                               CallAPI3(response.data.ReqstId,Filename)
@@ -255,6 +259,8 @@ module.exports.GetFiles_API = async function(Filename){
                               })
                             }
                             else{
+
+                              console.log("Else condition");
                               var updatevalues={
                                 RequestStatus: objectValue['JOBS'].STATUS,
                                 APIObject: '2nd  API called 2 time',

@@ -1870,11 +1870,13 @@ var routes = function () {
         .post(function (req, res) {
             let ITEM_NUMBER_Obj = req.body.ITEM_NUMBER;
             let INTERNAL_LOCATION_CODE_Obj = req.body.INTERNAL_LOCATION_CODE;
+            let LOT_NUMBER_Obj = req.body.LOT_NUMBER;
             const rmomaster = datamodel.rmomaster();
             var param = {
                 where: {
                     INTERNAL_LOCATION_CODE: INTERNAL_LOCATION_CODE_Obj,
-                    ITEM_NUMBER: ITEM_NUMBER_Obj
+                    ITEM_NUMBER: ITEM_NUMBER_Obj,
+                    LOT_NUMBER: LOT_NUMBER_Obj
                 },
             };
             dataaccess.FindAll(rmomaster, param)

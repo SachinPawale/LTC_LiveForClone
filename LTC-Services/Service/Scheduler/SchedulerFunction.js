@@ -404,14 +404,14 @@ router.route('/Get_RMO_Files_API')
         if(result!=''){
             excelService.ExportExcelFile('RMO',result.RequestID)
             .then((finalObject)=>{
-                console.log('after ExportExcelFile ',finalObject);
+                console.log('after ExportExcelFile for RMO ',finalObject);
                 const rmomaster = datamodel.rmomaster();
                 rmomaster.destroy({
                         where: {},
                         truncate: true
                 })
                 .then(() => {
-                    //console.log('Bulk data',result);
+                    console.log('Bulk data insert');
                     var bulkdata = finalObject;
                     rmomaster.bulkCreate(bulkdata).then(() => {
                         return rmomaster.findAll();
